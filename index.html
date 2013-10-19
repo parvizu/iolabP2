@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Tageolocation</title>
+    <meta charset="utf-8">
+
+    <!-- link to css file -->
+    <link rel="stylesheet" type="text/css" href="_css/style.css">
+    <link href="_css/bootstrap.css" rel="stylesheet">
+    <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
+</head>
+
+<body>
+	<div id="header">
+		<h1><i class="icon-twitter">&nbsp;+</i><i class="icon-tags">&nbsp;+</i><i class="icon-map-marker">&nbsp;=</i><i class="icon-lightbulb"></i></h1>
+	</div><!-- close header -->
+
+	<div id="container">
+
+		<!-- instruction -->
+<!--
+		<div id="instruction">
+			<h3>How to use:</h3>
+			<ul>
+				<li>Enter Keywords</li>
+				<li><i class="icon-arrow-down"></i></li>
+				<li>Select Suggested Tags</li>
+				<li><i class="icon-arrow-down"></i></li>
+				<li>Browse Related Tweets on the Map</li>
+			</ul>
+		</div>
+-->
+
+
+	<div class="column">
+		<form id="keyword-form">
+			<label>1. Please enter keywords</label><br>
+			<input name="keyword" type="text" id="keyword" size="50" placeholder="( ex: Cal, football, score )"><br><br>
+			<input type="submit" value="Get Suggested Tags">
+		</form>
+
+		<div id="indicator">
+			<h3><i class="icon-arrow-down"></i></h3>
+		</div>
+
+		<div id="tag-box">
+			<form id="suggested-tags">
+				<label>2. Select relevent tags</label><br>
+				<input type="checkbox" id="tag2" value="tag2">&nbsp;&nbsp;Tag 1<br>
+				<input type="checkbox" id="tag1" value="tag1">&nbsp;&nbsp;Tag 2<br>
+				<input type="checkbox" id="tag1" value="tag1">&nbsp;&nbsp;Tag 3<br><br>
+				<input type="submit" value="Apply to map">
+			</form>
+		</div><!-- /tag-box -->
+	</div><!-- /column-->
+
+
+		<!-- map -->
+	<div class="column">
+		<div id="map">
+			<iframe width="700" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;source=embed" style="color:#0000FF;text-align:left"></a></small><br><br>
+		</div><!-- /map -->
+	</div>
+
+	</div><!-- close container -->
+
+	<script src="_js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.js"></script>
+
+</body>
+</html>
+
+
+
