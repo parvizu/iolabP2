@@ -132,17 +132,14 @@ label {
     text-align: center;
 }
 
-#map h3 {
-    color: #696969;
-    text-decoration: underline;
+
+
+#map {
+        width: 700px;   
+        height: 500px;
+        margin: 0px;
+        padding: 0px;
 }
-
-#map iframe {
-    border: 1px solid #000;
-}
-
-
-
 
 /*#instruction {
     text-align: center;
