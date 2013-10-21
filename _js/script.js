@@ -25,7 +25,7 @@ function generate_tweet_content(user,tags,timestamp,content) {
                             '<div class="tweet_timestamp">'+timestamp+'</div>'+
                         '</div>';
 
-    return contentString                        
+    return contentString;                        
 }
 
 function makeInfoWindowEvent(map, infowindow, contentString, marker) {
@@ -87,5 +87,50 @@ $(document).ready(function() {
 });
 
 
+
+//twitter search results and mapping
+function openSearch()
+{
+	console.log($("#keyword").val());
+	var qdata = {'q': $("#keyword").val() };
+	
+	$.ajax({
+		url: 'http://people.ischool.berkeley.edu/~parvizu/iolab2013/twitterMapper/search_server.php',
+		type: 'GET',
+		data: qdata,
+		dataType: 'jsonp',
+		crossDomain: true,
+		error: function(error)
+			{
+				console.log(arguments);
+				console.log("Error: " + error.statusText);
+			},
+		success: function(data)
+			{
+				var tweets =[];
+				console.log(typeof data);
+				$.each(data['statuses'], function(i,val) 
+				{
+					if(val['entities']['geo'] != null)
+					{
+						var t =  [val['user']['screen_name'], 37.873154, -122.266768, getHashTagArray(val['entities']['hashtags']), val['created_at'], val['text']];	
+					}
+				});
+				
+				setMarkers(map,tweets);
+			}
+	});	
+}
+
+function getHashTagArray(json)
+{
+	var ht=[];
+	$.each(json, function(i,val)
+	{
+		ht.push(json[i]['text']);
+		console.log(ht);
+	});
+	return ht;	
+}
 
 
