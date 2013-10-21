@@ -1,5 +1,7 @@
 // google maps code
 var map;
+var markers = [];
+
 function initialize(lat, long) {
     var mapOptions = {
     	zoom: 16,
@@ -75,10 +77,16 @@ function setMarkers(map, locations) {
 
 //        var infowindow = new google.maps.InfoWindow();
         makeInfoWindowEvent(map,infowindow,contentString, marker);
-
+        markers.push(marker);
     }
+}
 
 
+function deleteMarkers(){
+    for (var i = 0; i<markers.length; i++){
+        markers[i].setMap(null);
+    }
+    markers = [];
 }
 
 // document ready
