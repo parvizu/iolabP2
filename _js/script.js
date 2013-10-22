@@ -7,11 +7,10 @@ var crd;
 function initialize(lat, long) {
     var mapOptions = {
     	zoom: 16,
-    	center: new google.maps.LatLng(lat, long),
+    	center: new google.maps.LatLng(37.871797, -122.2596),
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    setMarkers(map, tweets,'campanile');
 
 }
 
