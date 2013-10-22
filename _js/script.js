@@ -11,7 +11,6 @@ function initialize(lat, long) {
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-    setMarkers(map, tweets,'campanile');
 
 }
 
