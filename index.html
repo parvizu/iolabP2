@@ -6,13 +6,13 @@
 
     <!-- link to css file -->
     <link rel="stylesheet" type="text/css" href="_css/style.css">
-    <link href="_css/bootstrap.css" rel="stylesheet">
     <link href="font-awesome/css/font-awesome.min.css" rel="stylesheet">
 </head>
 
 <body>
 	<div id="header">
-		<h1><i class="icon-twitter">&nbsp;+</i><i class="icon-tags">&nbsp;+</i><i class="icon-map-marker">&nbsp;=</i><i class="icon-lightbulb"></i></h1>
+<!--		<h1><i class="icon-twitter">&nbsp;+</i><i class="icon-tags">&nbsp;+</i><i class="icon-map-marker">&nbsp;=</i><i class="icon-lightbulb"></i></h1> -->
+<img src="_img/new_logo_1.png" height="80px">
 	</div><!-- close header -->
 
 	<div id="container">
@@ -32,40 +32,53 @@
 -->
 
 
-	<div class="column">
-		<form id="keyword-form">
-			<label>1. Please enter keywords</label><br>
-			<input name="keyword" type="text" id="keyword" size="50" placeholder="( ex: Cal, football, score )"><br><br>
-			<input type="submit" value="Get Suggested Tags">
-		</form>
+
+<!--
 
 		<div id="indicator">
 			<h3><i class="icon-arrow-down"></i></h3>
 		</div>
 
-		<div id="tag-box">
-			<form id="suggested-tags">
-				<label>2. Select relevent tags</label><br>
-				<input type="checkbox" id="tag2" value="tag2">&nbsp;&nbsp;Tag 1<br>
-				<input type="checkbox" id="tag1" value="tag1">&nbsp;&nbsp;Tag 2<br>
-				<input type="checkbox" id="tag1" value="tag1">&nbsp;&nbsp;Tag 3<br><br>
-				<input type="submit" value="Apply to map">
-			</form>
-		</div><!-- /tag-box -->
-	</div><!-- /column-->
+
+
+<!--	</div><!-- /column-->
 
 
 		<!-- map -->
-	<div class="column">
+
 		<div id="map">
-			<iframe width="700" height="500" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;source=embed" style="color:#0000FF;text-align:left"></a></small><br><br>
+			<iframe width="90%" height="450" frameborder="0" scrolling="no" marginheight="0" marginwidth="0" src="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;output=embed"></iframe><br /><small><a href="https://maps.google.com/?ie=UTF8&amp;ll=37.870775,-122.30098&amp;spn=0.126972,0.221786&amp;t=m&amp;z=13&amp;source=embed" style="color:#0000FF;text-align:left"></a></small><br>
 		</div><!-- /map -->
-	</div>
+
+
+	<div class="column">
+<!--		<form id="keyword-form">
+			<label>Please enter keywords or tags</label><br>
+			<input name="keyword" type="text" id="keyword" size="50" placeholder="( ex: #Cal, football, score )"><br><br>
+			<input type="submit" value="Apply to Map">
+		</form>
+-->
+
+		<form id="suggested-tags">
+				<label>Select relevent tags</label><br><br>
+				<input type="checkbox" id="ischool" value="ischool"><span>#I-School</span>
+				<input type="checkbox" id="football" value="football"><span>#Football</span>
+				<input type="checkbox" id="ihouse" value="ihouse"><span>#I-House</span>
+				<input type="checkbox" id="campanile" value="campanile"><span>#Campanile</span>
+				<input type="checkbox" id="haas" value="haas"><span>#Haas</span>
+				<br><br>
+				<input type="submit" value="Apply to map">
+
+			</form>
+
+
+	</div><!-- /column -->
+
 
 	</div><!-- close container -->
 
-	<script src="_js/jquery-1.10.2.min.js"></script>
-    <script src="js/bootstrap.js"></script>
+<!-- 	<script src="_js/jquery-1.10.2.min.js"></script>
+    <script src="js/bootstrap.js"></script> -->
 
 </body>
 </html>
