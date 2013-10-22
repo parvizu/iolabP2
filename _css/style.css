@@ -153,6 +153,7 @@ label {
 /*#map {
     text-align: center;
 }
+<<<<<<< HEAD
 */
 #map h3 {
     color: #696969;
@@ -162,9 +163,17 @@ label {
 #map iframe {
     border: 1px solid #000;
 }
+=======
+>>>>>>> 3f8741acc7cc50b5eb5d82e1793111201a3560e4
 
 
 
+#map {
+        width: 700px;   
+        height: 500px;
+        margin: 0px;
+        padding: 0px;
+}
 
 /*#instruction {
     text-align: center;
