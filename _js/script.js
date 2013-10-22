@@ -6,7 +6,7 @@ var crd;
 
 function initialize(lat, long) {
     var mapOptions = {
-    	zoom: 16,
+    	zoom: 10,
     	center: new google.maps.LatLng(lat, long),
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
@@ -187,17 +187,14 @@ $(document).ready(function() {
 
 
 //twitter search results and mapping
-function openSearch()
+function openSearch(category)
 {
-	console.log($("#keyword").val());
-	var qdata = {'q': $("#keyword").val() };
-	
+	var qdata = {'q': $('#keyword').val()};
 	$.ajax({
-		url: 'http://people.ischool.berkeley.edu/~parvizu/iolab2013/twitterMapper/search_server.php',
+		url: 'search_server.php',
 		type: 'GET',
 		data: qdata,
-		dataType: 'jsonp',
-		crossDomain: true,
+		dataType: 'json',
 		error: function(error)
 			{
 				console.log(arguments);
@@ -206,16 +203,14 @@ function openSearch()
 		success: function(data)
 			{
 				var tweets =[];
-				console.log(typeof data);
 				$.each(data['statuses'], function(i,val) 
 				{
-					if(val['entities']['geo'] != null)
-					{
-						var t =  [val['user']['screen_name'], 37.873154, -122.266768, getHashTagArray(val['entities']['hashtags']), val['created_at'], val['text']];	
-					}
+					var t =  [val['user']['screen_name'], getHashTagArray(val['entities']['hashtags']), val['created_at'], val['text']];
+					tweets.push(t);	
 				});
 				
-				setMarkers(map,tweets);
+				console.log(tweets);
+				setMarkers(map,tweets,category);
 			}
 	});	
 }
@@ -226,7 +221,6 @@ function getHashTagArray(json)
 	$.each(json, function(i,val)
 	{
 		ht.push(json[i]['text']);
-		console.log(ht);
 	});
 	return ht;	
 }
