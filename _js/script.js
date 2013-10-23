@@ -4,14 +4,25 @@ var markers = [];
 
 var crd;
 
+var tagRelations = { 
+	'ucberkeley': ['#UCBerkeley','#BerkeleyBlog','#AtBerkeley','#Cal','#UCB','#OccupyCal','#University','#Berkely','#UniversityofCalifornia','#UC #Berkeley'],
+	'ischool': [ 'Berkeley #BigData','Berkeley #ischool', 'Berkeley #mims', 'Berkeley #southhall', 'Berkeley South Hall', 'UCBerkeley #BigData','UCBerkeley #ischool', 'UCBerkeley #mims', 'UCBerkeley #southhall', 'UCBerkeley South Hall' ],
+	'football': ['#Berkeley #Football', '#Cal #Football', '#UCBerkeley #Football','#Cal #Bears','#CalBears','#CalFootball','#GoBears','#GoCal','#Cal Memorial Stadium','#BearRaid'],
+	'ihouse': ['#Berkeley #IHDay','#Berkeley #IHDay13','#Berkeley #IHouse','#Berkeley #InternationalHouse','#UCBerkeley #IHDay','#UCBerkeley #IHDay13','#UCBerkeley #IHouse','#UCBerkeley #InternationalHouse','#Cal #IHDay','#Cal #IHDay13','#Cal #IHouse','#Cal #InternationalHouse'],
+	'campanile': ['#Berkeley #Campanile','#Berkeley Campanile','#Berkeley #SatherTower','#Berkeley Sather Tower','#UCBerkeley Campanile','#UCBerkeley #Campanile','#UCBerkeley #SatherTower','#UCBerkeley Sather Tower','#Cal #Campanile','#Cal Campanile','#Cal #SatherTower','#Cal Sather Tower']
+	
+};
+	
+	
+
 function initialize(lat, long) {
     var mapOptions = {
-    	zoom: 10,
+    	zoom: 15,
     	center: new google.maps.LatLng(lat, long),
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-
+	
 }
 
 
@@ -77,7 +88,7 @@ function setMarkers(map, locations, place) {
         max_longitude = -122.249665;
         min_latitude = 37.869922;
         max_latitude = 37.871954; 
-        zoom = 18;
+        zoom = 17;
     }
     else if (place == 'ihouse'){
         min_longitude = -122.251950;
@@ -150,45 +161,35 @@ function deleteMarkers(){
     markers = [];
 }
 
-
-/*
-function getUserGeolocation(callback){
-    if (navigator.geolocation) {
-       var options = {
-            enableHighAccuracy: true,
-            timeout: 5000,
-            maximumAge: 0
-        };
-        function success(pos) {
-            crd = pos.coords;
-
-            console.log('Your current position is:');
-            console.log('Latitude : ' + crd.latitude);
-            console.log('Longitude: ' + crd.longitude);
-            console.log('More or less ' + crd.accuracy + ' meters.');
-            callback();
-        };
-        function error(err) {
-            console.warn('ERROR(' + err.code + '): ' + err.message);
-        };
-        navigator.geolocation.getCurrentPosition(success, error, options);
-
-    }
-
-}
-*/
-
 // document ready
 $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initialize(37.870154, -122.260768));
 });
 
 
+function selection()
+{
+	deleteMarkers();
+	var qdata = {'q': $('#keyword').val()};
+	var checked = $("input[name=options]:checked");	
+	//console.log(checked);
+	if (checked.length)
+	{
+		for(var i =0; i<checked.length;i++)
+		{
+			for(var j = 0; j<tagRelations[checked[i]['id']].length;j++)
+			{
+				openSearch(checked[i]['id'],tagRelations[checked[i]['id']][j]);
+			}
+			
+		}
+	}
+}
 
 //twitter search results and mapping
-function openSearch(category)
+function openSearch(category, keywords)
 {
-	var qdata = {'q': $('#keyword').val()};
+	var qdata = {'q': keywords};
 	$.ajax({
 		url: 'search_server.php',
 		type: 'GET',
@@ -202,6 +203,7 @@ function openSearch(category)
 		success: function(data)
 			{
 				var tweets =[];
+				console.log(data);
 				$.each(data['statuses'], function(i,val) 
 				{
 					var t =  [val['user']['screen_name'], getHashTagArray(val['entities']['hashtags']), val['created_at'], val['text']];
@@ -209,6 +211,7 @@ function openSearch(category)
 				});
 				
 				console.log(tweets);
+				console.log(keywords);
 				setMarkers(map,tweets,category);
 			}
 	});	
