@@ -28,26 +28,35 @@
 
 		<!-- /map -->
         
-	<div class="column">
-
-		<form id="suggested-tags">
-				<label>Cal Hashtags</label><br><br>
-				<li><input type="checkbox" name="options" id="ischool" value="ischool" onChange="selection();return false;"><span>#I-School</span>
-				<li><input type="checkbox" name="options" id="football" value="football" onChange="selection();return false;"><span>#Football</span>
-				<li><input type="checkbox" name="options" id="ihouse" value="ihouse" onChange="selection();return false;"><span>#I-House</span>
-				<li><input type="checkbox" name="options" id="campanile" value="campanile" onChange="selection();return false;"><span>#Campanile</span>
-				<li><input type="checkbox" name="options" id="haas" value="haas" onChange="selection();return false;"><span>#Haas</span>
-                <li><input type="checkbox" name="options" id="ucberkeley" value="ucberkeley" onChange="selection();return false;"><span>#UCBerkeley</span>
-				
-				<input type="submit" value="Apply to map">
-
-		</form>
-		<img src="_img/Callogo.png">
-
-	</div><!-- /column -->
+        <div class="column">
+    
+            <form id="suggested-tags">
+                    <label>Cal Hashtags</label><br><br>
+                    <li><input type="checkbox" name="options" id="ischool" value="ischool" onChange="selection();return false;"><span>#I-School</span>
+                    <li><input type="checkbox" name="options" id="football" value="football" onChange="selection();return false;"><span>#Football</span>
+                    <li><input type="checkbox" name="options" id="ihouse" value="ihouse" onChange="selection();return false;"><span>#I-House</span>
+                    <li><input type="checkbox" name="options" id="campanile" value="campanile" onChange="selection();return false;"><span>#Campanile</span>
+                    <li><input type="checkbox" name="options" id="haas" value="haas" onChange="selection();return false;"><span>#Haas</span>
+                    <li><input type="checkbox" name="options" id="ucberkeley" value="ucberkeley" onChange="selection();return false;"><span>#UCBerkeley</span>
+                    
+                
+    
+            </form>
+            <img src="_img/Callogo.png">
+    
+        </div><!-- /column -->													
 	
-
-	</div><!-- close container -->
+        <div class="output">
+        	<h3>Hashtags</h3>
+            <ul id="hashtags" class="lists"></ul>
+        </div>
+        
+        <div class="output">
+        	<h3>Tweets</h3>
+        	<ul id="tweets" class="lists"></ul>
+        </div>
+        
+    </div><!-- close container -->
 
 
 </body>

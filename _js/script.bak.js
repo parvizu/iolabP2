@@ -4,26 +4,15 @@ var markers = [];
 
 var crd;
 
-var tagRelations = { 
-	'ucberkeley': ['#UCBerkeley','#BerkeleyBlog','#AtBerkeley','#Cal','#UCB','#OccupyCal','#University','#Berkely','#UniversityofCalifornia','#UC #Berkeley'],
-	'ischool': [ 'Berkeley #BigData','Berkeley #ischool', 'Berkeley #mims', 'Berkeley #southhall', 'Berkeley South Hall', 'UCBerkeley #BigData','UCBerkeley #ischool', 'UCBerkeley #mims', 'UCBerkeley #southhall', 'UCBerkeley South Hall' ],
-	'football': ['#Berkeley #Football', '#Cal #Football', '#UCBerkeley #Football','#Cal #Bears','#CalBears','#CalFootball','#GoBears','#GoCal','#Cal Memorial Stadium','#BearRaid'],
-	'ihouse': ['#Berkeley #IHDay','#Berkeley #IHDay13','#Berkeley #IHouse','#Berkeley #InternationalHouse','#UCBerkeley #IHDay','#UCBerkeley #IHDay13','#UCBerkeley #IHouse','#UCBerkeley #InternationalHouse','#Cal #IHDay','#Cal #IHDay13','#Cal #IHouse','#Cal #InternationalHouse'],
-	'campanile': ['#Berkeley #Campanile','#Berkeley Campanile','#Berkeley #SatherTower','#Berkeley Sather Tower','#UCBerkeley Campanile','#UCBerkeley #Campanile','#UCBerkeley #SatherTower','#UCBerkeley Sather Tower','#Cal #Campanile','#Cal Campanile','#Cal #SatherTower','#Cal Sather Tower'],
-	'haas': ['#Berkeley #Haas','#Berkeley Haas','#Berkeley #Business','#Berkeley MBA','#UCBerkeley #Haas','#UCBerkeley #Business','#UCBerkeley MBA','#Berkeley #Haas','#Cal #MBA','#Berkeley MBA','#UCBerkeley #PlayHackaton','#UCBerkeley #MBA','#UCBerkeley #Play2013']
-	
-};
-	
-	
-
 function initialize(lat, long) {
     var mapOptions = {
-    	zoom: 15,
+    	zoom: 10,
     	center: new google.maps.LatLng(lat, long),
     	mapTypeId: google.maps.MapTypeId.ROADMAP
     };
     map = new google.maps.Map(document.getElementById("map"), mapOptions);
-	
+    setMarkers(map, tweets,'campanile');
+
 }
 
 
@@ -89,7 +78,7 @@ function setMarkers(map, locations, place) {
         max_longitude = -122.249665;
         min_latitude = 37.869922;
         max_latitude = 37.871954; 
-        zoom = 17;
+        zoom = 18;
     }
     else if (place == 'ihouse'){
         min_longitude = -122.251950;
@@ -125,7 +114,7 @@ function setMarkers(map, locations, place) {
     for (var i = 0; i < locations.length; i++) {
         var tweet = locations[i];
         // load content from each tweet
-        var user = "User: "+tweet[0];
+        var user = tweet[0];
         
         //var myLatLng = new google.maps.LatLng(tweet[1], tweet[2]);
         var x = Math.random();
@@ -134,7 +123,7 @@ function setMarkers(map, locations, place) {
         var longitude = x * min_longitude + (1-x)* max_longitude;
         var myLatLng = new google.maps.LatLng(latitude, longitude);
 
-        var tags = "Hashtags: "+ tweet[1];
+        var tags = tweet[1];
         var timestamp = tweet[2];
         var content = tweet[3];
 
@@ -162,37 +151,45 @@ function deleteMarkers(){
     markers = [];
 }
 
+
+/*
+function getUserGeolocation(callback){
+    if (navigator.geolocation) {
+       var options = {
+            enableHighAccuracy: true,
+            timeout: 5000,
+            maximumAge: 0
+        };
+        function success(pos) {
+            crd = pos.coords;
+
+            console.log('Your current position is:');
+            console.log('Latitude : ' + crd.latitude);
+            console.log('Longitude: ' + crd.longitude);
+            console.log('More or less ' + crd.accuracy + ' meters.');
+            callback();
+        };
+        function error(err) {
+            console.warn('ERROR(' + err.code + '): ' + err.message);
+        };
+        navigator.geolocation.getCurrentPosition(success, error, options);
+
+    }
+
+}
+*/
+
 // document ready
 $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initialize(37.870154, -122.260768));
 });
 
 
-function selection()
-{
-	$("#tweets").html("");
-	$("#hashtags").html("");
-	deleteMarkers();
-	var qdata = {'q': $('#keyword').val()};
-	var checked = $("input[name=options]:checked");	
-	//console.log(checked);
-	if (checked.length)
-	{
-		for(var i =0; i<checked.length;i++)
-		{
-			for(var j = 0; j<tagRelations[checked[i]['id']].length;j++)
-			{
-				openSearch(checked[i]['id'],tagRelations[checked[i]['id']][j]);
-			}
-			
-		}
-	}
-}
 
 //twitter search results and mapping
-function openSearch(category, keywords)
+function openSearch(category)
 {
-	var qdata = {'q': keywords};
+	var qdata = {'q': $('#keyword').val()};
 	$.ajax({
 		url: 'search_server.php',
 		type: 'GET',
@@ -206,50 +203,17 @@ function openSearch(category, keywords)
 		success: function(data)
 			{
 				var tweets =[];
-				var tweetTexts=[];
-				console.log(data);
 				$.each(data['statuses'], function(i,val) 
 				{
-					var tags =getHashTagArray(val['entities']['hashtags']);
-					console.log(tags);
-					var t =  [val['user']['screen_name'],tags , val['created_at'], val['text']];
+					var t =  [val['user']['screen_name'], getHashTagArray(val['entities']['hashtags']), val['created_at'], val['text']];
 					tweets.push(t);	
-					tweetTexts.push(val['text']);
-					if(tags.length>0)
-					{
-						displayHashtags(tags);
-					}
-					
 				});
 				
-				displayTweetTexts(tweetTexts);
-				
+				console.log(tweets);
 				setMarkers(map,tweets,category);
 			}
 	});	
 }
-
-function displayTweetTexts(tweets)
-{
-	for(var i=0; i<tweets.length;i++)
-	{
-		$("#tweets").append("<li>"+tweets[i]);	
-	}
-}
-
-function displayHashtags(hashtags)
-{
-	if (hashtags.length>0)
-	{
-		for(var i=0; i<tweets.length;i++)
-		{
-			if(hashtags[i]!='undefined')
-				$("#hashtags").append("<li>#"+hashtags[i]);	
-		}	
-
-	}
-}
-
 
 function getHashTagArray(json)
 {
@@ -260,4 +224,5 @@ function getHashTagArray(json)
 	});
 	return ht;	
 }
+
 

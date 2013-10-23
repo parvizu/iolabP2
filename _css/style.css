@@ -194,3 +194,46 @@ label {
     width: 300px;
     text-align: center;
 }*/
+
+.output
+{
+	display: inline-block;
+	width: 450px;
+	padding:10px;
+	border-radius:5px;
+	text-align:left;
+	vertical-align:top;
+}
+
+.output h3
+{
+	text-align: center;
+    text-shadow: 2px 2px #696969;
+	color: #0F4D92;
+	font-family:Verdana, Geneva, sans-serif;
+}
+
+.lists
+{
+	list-style-type:none;	
+	vertical-align:top;
+	float:0 auto;
+	border-radius: 5px;
+}
+
+
+.lists li
+{
+	padding:3px;
+	border-radius: 5px;
+}
+
+.lists li:nth-child(odd)
+{
+	background-color:#CCC;
+}
+
+.lists li:nth-child(even)
+{
+	background-color:#FFF;
+}
