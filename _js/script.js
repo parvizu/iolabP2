@@ -4,6 +4,7 @@ var markers = [];
 
 var crd;
 
+//list of tag relations and combinatios for a particular subject
 var tagRelations = { 
 	'ucberkeley': ['#UCBerkeley','#BerkeleyBlog','#AtBerkeley','#Cal','#UCB','#OccupyCal','#University','#Berkely','#UniversityofCalifornia','#UC #Berkeley'],
 	'ischool': [ 'Berkeley #BigData','Berkeley #ischool', 'Berkeley #mims', 'Berkeley #southhall', 'Berkeley South Hall', 'UCBerkeley #BigData','UCBerkeley #ischool', 'UCBerkeley #mims', 'UCBerkeley #southhall', 'UCBerkeley South Hall' ],
@@ -28,7 +29,7 @@ function initialize(lat, long) {
 
 
 
-
+//html used to create the tweet in the map when clicked on it
 function generate_tweet_content(user,tags,timestamp,content) {
     var all_tags = '';
     for (var i =0; i < tags.length; i++){
@@ -51,7 +52,7 @@ function makeInfoWindowEvent(map, infowindow, contentString, marker) {
     infowindow.open(map, marker);
   });
 }
-
+//dummy list of tweets.
 var tweets = [
   ['User1', ['tag1','tag2'], '2013-10-19', 'Free lunch and free dinner in Ischool today'],
   ['User2', ['tag2','tag3'], '2013-10-19', 'Free lunch and free dinner in Ischool today'],
@@ -59,6 +60,9 @@ var tweets = [
   ['User4', ['tag4','tag5'], '2013-10-19', 'Free lunch and free dinner in Ischool today']  
 ];
 
+/*
+function used to place the tweets in the map
+*/
 function setMarkers(map, locations, place) {
     var image = {
         url: '_img/twitter_icon.png',
@@ -77,6 +81,7 @@ function setMarkers(map, locations, place) {
     var min_latitude;
     var max_latitude;
     var zoom;
+	//places predefined in the map to place the tweets
     if (place == 'ischool'){
         min_longitude = -122.258677;
         max_longitude = -122.258339;
@@ -122,6 +127,7 @@ function setMarkers(map, locations, place) {
     cenLatLng = new google.maps.LatLng((min_latitude+max_latitude)/2,(min_longitude+max_longitude)/2);
     map.setCenter(cenLatLng);
     map.setZoom(zoom);
+	//creates the tweet and its info to be placed in the map
     for (var i = 0; i < locations.length; i++) {
         var tweet = locations[i];
         // load content from each tweet
@@ -154,7 +160,8 @@ function setMarkers(map, locations, place) {
     }
 }
 
-
+/*function that removes the markers/tweets from the map
+*/
 function deleteMarkers(){
     for (var i = 0; i<markers.length; i++){
         markers[i].setMap(null);
@@ -167,7 +174,9 @@ $(document).ready(function() {
     google.maps.event.addDomListener(window, 'load', initialize(37.870154, -122.260768));
 });
 
-
+/*
+function used to get the selected checklist from the form to make the search for each one
+*/
 function selection()
 {
 	$("#tweets").html("");
@@ -189,7 +198,8 @@ function selection()
 	}
 }
 
-//twitter search results and mapping
+/*
+function that gets the results of a search to twitter API and then calls the function to place them in the map */
 function openSearch(category, keywords)
 {
 	var qdata = {'q': keywords};
@@ -229,6 +239,7 @@ function openSearch(category, keywords)
 	});	
 }
 
+/* used to display the text of the tweets in the div under the map */
 function displayTweetTexts(tweets)
 {
 	for(var i=0; i<tweets.length;i++)
@@ -237,6 +248,8 @@ function displayTweetTexts(tweets)
 	}
 }
 
+
+/* used to add the list of hastags to the div in the website */
 function displayHashtags(hashtags)
 {
 	if (hashtags.length>0)
@@ -250,7 +263,7 @@ function displayHashtags(hashtags)
 	}
 }
 
-
+/* function that creates an array of multiple json atributes */
 function getHashTagArray(json)
 {
 	var ht=[];
