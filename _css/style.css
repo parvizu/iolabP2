@@ -199,7 +199,8 @@ label {
 {
 	display: inline-block;
 	width: 450px;
-	padding:10px;
+	margin-top:10px;
+	padding:5px;
 	border-radius:5px;
 	text-align:left;
 	vertical-align:top;
@@ -211,6 +212,7 @@ label {
     text-shadow: 2px 2px #696969;
 	color: #0F4D92;
 	font-family:Verdana, Geneva, sans-serif;
+	
 }
 
 .lists
@@ -219,6 +221,8 @@ label {
 	vertical-align:top;
 	float:0 auto;
 	border-radius: 5px;
+	max-height:400px;
+	overflow:auto;
 }
 
 
